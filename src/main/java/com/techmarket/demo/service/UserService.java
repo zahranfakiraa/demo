@@ -68,7 +68,7 @@ public class UserService {
 
         // first find user by email
         User user = userRepository.findByEmail(signInDto.getEmail());
-        if(Helper.notNull(user)){
+        if(!Helper.notNull(user)){
             throw  new AuthenticationFailException("user not present");
         }
 
@@ -79,7 +79,7 @@ public class UserService {
 
         AuthenticationToken token = authenticationService.getToken(user);
 
-        if(Helper.notNull(token)){
+        if(!Helper.notNull(token)){
             // token not present
             throw new CustomeException("token not present");
         }

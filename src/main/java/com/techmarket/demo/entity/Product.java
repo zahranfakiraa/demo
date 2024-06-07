@@ -36,6 +36,7 @@ public class Product {
     Category category;
 
     public Product(String name, String imageUrl, double price, String description, Category category) {
+        super();
         this.name = name;
         this.imageUrl = imageUrl;
         this.price = price;

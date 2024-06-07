@@ -37,13 +37,16 @@ public class AuthenticationToken {
         this.token = UUID.randomUUID().toString();
     }
 
+    public AuthenticationToken() {
+    }
+
     public AuthenticationToken(Integer id, String token, Date createdDate, User user) {
         this.id = id;
         this.token = token;
         this.createdDate = createdDate;
         this.user = user;
     }
-
-
+    
+    
 
 }

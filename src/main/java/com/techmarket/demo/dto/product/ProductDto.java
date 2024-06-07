@@ -35,6 +35,8 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
-    
+    public ProductDto() {
+    }
 
+    
 }
