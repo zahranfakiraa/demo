@@ -23,7 +23,7 @@ import com.techmarket.demo.service.ProductService;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-    
+
     @Autowired
     ProductService productService;
 
@@ -31,30 +31,31 @@ public class ProductController {
     CategoryService categoryService;
 
     @GetMapping("/")
-    public ResponseEntity<List<ProductDto>> getProduct(){
+    public ResponseEntity<List<ProductDto>> getProduct() {
         List<ProductDto> body = productService.listProduct();
-        return new ResponseEntity<List<ProductDto>>(body,HttpStatus.OK);
+        return new ResponseEntity<List<ProductDto>>(body, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductDto productDto){
+    public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
-        if(!optionalCategory.isPresent()){
-            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"),HttpStatus.CONFLICT);
+        if (!optionalCategory.isPresent()) {
+            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
         }
         Category category = optionalCategory.get();
-        productService.addProduct(productDto, category);
+        productService.addProduct(productDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{productId}")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") Integer productId, @RequestBody @Validated ProductDto productDto){
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productId") Integer productId,
+            @RequestBody @Validated ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
-        if(!optionalCategory.isPresent()){
-            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"),HttpStatus.CONFLICT);
+        if (!optionalCategory.isPresent()) {
+            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
         }
         Category category = optionalCategory.get();
-        productService.updateProduct(productId, productDto, category);
+        productService.updateProduct(productId, productDto);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
     }
 }

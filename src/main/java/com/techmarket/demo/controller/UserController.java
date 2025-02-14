@@ -21,10 +21,10 @@ import com.techmarket.demo.service.AuthenticationService;
 import com.techmarket.demo.service.UserService;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
-    
+
     @Autowired
     UserRepository userRepository;
 
@@ -35,7 +35,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/all")
-    public User findUser(@RequestParam("token") String token) throws AuthenticationFailException{
+    public User findUser(@RequestParam("token") String token) throws AuthenticationFailException {
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);
         user.getEmail();
@@ -43,14 +43,13 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseDto signUp(@RequestBody SignUpDto signUpDto) throws CustomeException{
+    public ResponseDto signUp(@RequestBody SignUpDto signUpDto) throws CustomeException {
         return userService.signUp(signUpDto);
     }
 
     @PostMapping("/signin")
-    public SignInResponseDto signIn(@RequestBody SignInDto signInDto) throws CustomeException{
+    public SignInResponseDto signIn(@RequestBody SignInDto signInDto) throws CustomeException {
         return userService.signIn(signInDto);
     }
-    
 
 }
